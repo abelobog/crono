@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head><title>Cronómetro</title><meta charset="UTF-8">
+<link href="css/cronometro.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/zepto.min.js" ></script>
+
+<script type="text/javascript">
+    $(function(){
+        var t, cl = $("#crono");
+        var cad = ""; cont = 1;
+        li = $('#lista');
+        
+        function mostrar() { 
+            cl.html((+cl.html() + 0.1).toFixed(1)); 
+        };
+        
+        function arrancar() {
+            t=setInterval(mostrar, 100);
+        };
+        
+        function parar() {
+            clearInterval(t);  
+            t=undefined;
+            cad += cont + " => " + cl.html() + " segundos <br>";
+            cont += 1; //cont = cont + 1; cont++;
+            li.html(cad);
+        };
+        
+        function cambiar()  {
+            if (!t) 
+                arrancar(); 
+            else 
+                parar();
+        };
+        
+        $("#cambiar").on('click', cambiar);
+        
+        $("#inicializar").on
+                ('click', 
+                        function(){ 
+                            cl.html("0.0");
+                            li.html("");
+                            cad = "";
+                            cont = 1;
+                        }
+                        );
+    });
+</script>
+</head>
+<body>
+<div class="imagen">
+<button type="button" id="cambiar" class="boton"> play/stop </button>
+<div id="crono"> 0.0 </div> 
+<button type="button" id="inicializar" class="boton">  init </button>    
+  
+</div>    
+<div id='lista'></div>
+</body>
+</html>
